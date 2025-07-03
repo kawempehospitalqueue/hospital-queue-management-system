@@ -1,0 +1,99 @@
+extends doctor-layout.pug
+
+block scripts
+  script.
+    document.addEventListener("DOMContentLoaded", function () {
+      var patientNumber = !{JSON.stringify(patient.patientNumber)};
+      document.getElementById("watermark").textContent = `Patient: ${patientNumber}`;
+    });
+
+block content
+  .pagetitle
+    .d-flex.justify-content-between.align-items-center
+      div
+        h1 Medical Form
+        nav
+          ol.breadcrumb
+            li.breadcrumb-item
+              a(href='/all-patients') Patient List
+            li.breadcrumb-item
+              a(href="/view-patient/"+patient._id) Patients Details
+            li.breadcrumb-item.active Form
+      .btn-print
+        button.button(onclick='window.print()') Print
+  .admissionform-container
+    span#watermark.watermark
+    .rec-logo
+      a(href='dashboard.html')
+        img(src='/img/logo.png' alt='logo')
+    .admissionform-body
+      .text-center
+        span.badge  MEDICAL FORM
+      .admissionform-body-content
+        h5 Patient Details
+        .row.mb-2
+          .col-lg-5.col-md-4.col-sm-3
+            span
+              strong Patient Code:
+          .col-lg-7.col-md-8.col-sm-9
+            span= `${patient.patientNumber}`
+        .row.mb-2
+          .col-lg-5.col-md-4.col-sm-3
+            span
+              strong Patient Name:
+          .col-lg-7.col-md-8.col-sm-9
+            span= `${patient.patientName}`
+        .row.mb-2
+          .col-lg-5.col-md-4.col-sm-3
+            span
+              strong Gender:
+          .col-lg-7.col-md-8.col-sm-9
+            span= `${patient.gender}`
+        .row.mb-2
+          .col-lg-5.col-md-4.col-sm-3
+            span
+              strong Date of Birth:
+          .col-lg-7.col-md-8.col-sm-9
+            span= `${patient.dateOfBirth}`
+        .row.mb-2
+          .col-lg-5.col-md-4.col-sm-3
+            span
+              strong Address:
+          .col-lg-7.col-md-8.col-sm-9
+            span= `${patient.address}`           
+      .admissionform-body-content.mt-4
+        h5 Admission Details
+        .row.mb-2
+          .col-lg-5.col-md-4.col-sm-3
+            span
+              strong Admitted By:
+          .col-lg-7.col-md-8.col-sm-9
+            span= `${patient.recievedBy.userName} (${patient.recievedBy.role})`
+        .row.mb-2
+          .col-lg-5.col-md-4.col-sm-3
+            span
+              strong Admitted On:
+          .col-lg-7.col-md-8.col-sm-9
+            span= ` ${patient.createdAt ? new Date(patient.createdAt).toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' }) : 'N/A'}`
+        .row.mb-2
+          .col-lg-5.col-md-4.col-sm-3
+            span
+              strong Comments:
+          .col-lg-7.col-md-8.col-sm-9
+            span= `${patient.comments}`      
+        .row.mb-2
+          .col-lg-5.col-md-4.col-sm-3
+            span
+              strong Assessed by:
+          .col-lg-7.col-md-8.col-sm-9
+            span= `${loggedInUser.userName} (${loggedInUser.role})`
+    .admissionform-footer
+      h2 Kawempe National Referal Hospital.
+      p Serving you with a smile.
+      span
+        i.bi.bi-telephone
+        |  0780169873
+      span |
+      span
+        i.bi.bi-envelope
+        |  contact@kawempenationalreferalhospital.com

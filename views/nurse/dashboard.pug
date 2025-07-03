@@ -1,0 +1,34 @@
+extends nurse-layout.pug
+
+block content
+  .container-fluid
+    .pagetitle.mb-4
+      h1 Nurse Dashboard
+      nav
+        ol.breadcrumb
+          li.breadcrumb-item.active Dashboard
+
+    .row.g-4
+      .col-md-6
+        .card.shadow-sm
+          .card-body.text-center
+            h6 Total Patients
+            h3 #{totalPatients}
+
+      .col-md-6
+        .card.shadow-sm
+          .card-body.text-center
+            h6 Patients I Received
+            h3 #{recievedPatients}
+
+      .col-md-6
+        .card.shadow-sm
+          .card-body.text-center
+            h6 My Patients Called
+            h3.text-success #{receivedCalled}
+
+      .col-md-6
+        .card.shadow-sm
+          .card-body.text-center
+            h6 My Patients Waiting
+            h3.text-warning #{receivedNotCalled}

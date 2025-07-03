@@ -1,0 +1,81 @@
+extends admin-layout.pug
+
+block scripts
+  script(src='/js/modal.js')
+  
+block content
+  .pagetitle
+    h1 Patient Details
+    nav
+      ol.breadcrumb
+        li.breadcrumb-item
+          a(href='/dashboard') Dashboard
+        li.breadcrumb-item
+          a(href='/all-patients') Patients List
+        li.breadcrumb-item.active Patient Details
+  .card.profile-card
+    .row
+      .col-lg-3.col-md-4.profile-img
+        img(src=('/img/patient.png') alt="Profile Image")
+      .col-lg-9.col-md-8
+        .mt-2.mt-lg-0.profile-header
+          h3
+            strong= `${patient.patientNumber} - ${patient.patientName}`
+          p= `Gender: ${patient.gender} | Date of Birth: ${patient.dateOfBirth}`
+        .row.mb-2
+          .col-lg-3
+            span
+              strong Phone Number:
+          .col-lg-9
+            span= patient.phoneNumber
+        .row.mb-2
+          .col-lg-3
+            span
+              strong Address:
+          .col-lg-9
+            span= patient.address
+        .row.mb-2
+          .col-lg-3
+            span
+              strong Recieved By:
+          .col-lg-9
+            span= `${patient.recievedBy.userName} (${patient.recievedBy.role})`
+        .row.mb-2
+          .col-lg-3
+            span
+              strong Comments:
+          .col-lg-9
+            span= patient.comments
+        .row.mb-2
+          .col-lg-3
+            span
+              strong Assigned To:
+          .col-lg-9
+            span= patient.assignedTo
+        .row.mb-2
+          .col-lg-3
+            span
+              strong Last Updated:
+          .col-lg-9
+            span= `On: ${patient.updatedAt ? new Date(patient.updatedAt).toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' }) : 'N/A'} | By: ${patient.updatedBy? patient.updatedBy.userName : patient.recievedBy.userName} (${patient.updatedBy? patient.updatedBy.role : patient.recievedBy.role})`
+        .row.mt-2
+          .col-lg-3
+            span
+              strong Actions:
+          .col-lg-9.actions
+            div
+              form(method="POST" action="/delete-patient")
+                input(type="hidden" name="id" value=patient._id)
+                button(class="action-btn del-btn" type="button")
+                  i.bi.bi-trash
+                  |  Delete
+
+  .modal#deleteModal
+    .modal-dialog
+      .modal-content
+        .mdl-body
+          h5 Confirm Deletion!
+          p Are you sure you want to delete this patient?
+        .mdl-footer
+          button(type='button' class='action-btn view-btn' id='cancelDelete') Cancel
+          button(type='button' class='action-btn del-btn' id='confirmDelete') Delete

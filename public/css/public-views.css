@@ -1,0 +1,349 @@
+body {
+    background: linear-gradient(to right, #fff, #ffffff78), url(../img/onboarding.jpg) fixed;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-family: "Open Sans", sans-serif;
+}
+
+a {
+    color: #7d2856;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #a43670;
+    text-decoration: none;
+}
+
+/* notifications */
+#notification-container {
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 1000;
+    max-width: 350px;
+    transition: all 0.3s ease-in-out;
+}
+
+@media (max-width: 768px) {
+    #notification-container {
+        bottom: 10px;
+        right: 10px;
+    }
+}
+
+.notification {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideIn 0.5s forwards;
+}
+
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.notification h6 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 2px;
+    color: #0eb93e;
+}
+
+.notification p {
+    font-weight: 200;
+    font-size: 13px;
+}
+
+.notification img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.notification-exit {
+    opacity: 1;
+    transform: translateY(0);
+    animation: slideOut 0.5s forwards;
+}
+
+@keyframes slideOut {
+    to {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
+
+.error-notification h6 {
+    color: #de1d1d;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.error-notification p {
+    font-weight: 200;
+    font-size: 13px;
+}
+
+/* header */
+.header {
+    position: absolute;
+    top: 0;
+    padding: 10px 30px;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    width: 100%;
+    z-index: 999;
+}
+
+.header img {
+    max-height: 4rem;
+}
+
+.header i {
+    font-size: 20px;
+}
+
+/* home page */
+.home {
+    padding: 60px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+}
+
+.home h2 {
+    font-weight: 800;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.home .local-message {
+    font-weight: bold;
+    font-size: 3rem;
+    text-align: center;
+    color: #7d2856;
+}
+
+.home .calling-card {
+    border-radius: 10px;
+    background: #ffffffab;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 80%;
+    margin-top: 4rem;
+    text-align: center;
+}
+
+.home i {
+    margin-right: 10px;
+    color: #7d2856;
+}
+
+#call-notification h3 {
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+#call-notification .local-message {
+    font-size: 3rem;
+    font-weight: 800;
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 10px 10px;
+    }
+
+    .header img {
+        max-height: 3rem;
+    }
+
+    .home .calling-card {
+        width: 100%;
+    }
+
+    .home h2 {
+        font-size: 1rem;
+    }
+
+    .home .local-message {
+        font-size: 1.5rem;
+    }
+
+    #call-notification h3 {
+        font-size: 1rem;
+        font-weight: 800;
+    }
+
+    #call-notification .local-message {
+        font-size: 1.5rem;
+        font-weight: 800;
+    }
+}
+
+@media (max-width: 400px) {
+    .header img {
+        max-height: 2rem;
+    }
+}
+
+/* login page */
+.login {
+    padding: 60px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.login img {
+    max-height: 4rem;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+}
+
+.login .form-card {
+    border-radius: 10px;
+    background: #ffffffab;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 450px;
+}
+
+@media (max-width: 600px) {
+    .login img {
+        max-height: 3rem;
+        margin-bottom: 2rem;
+    }
+
+    .login .form-card {
+        width: 100%;
+    }
+}
+
+.login .form-card input {
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: none;
+    font-size: 14px;
+    background: transparent;
+    border: 1px #afafaf solid;
+    transition: 0.3s;
+    padding: 8px;
+}
+
+.login .form-card input:focus,
+.login .form-card input:active {
+    border: 1px rgba(125, 40, 85, 0.4) solid;
+    background: transparent;
+}
+
+.login .form-card label {
+    font-size: 14px;
+    margin-bottom: 1px;
+}
+
+.login .form-card h3 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.submit-button {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.invalidation-message {
+    color: #de1d1d;
+    font-weight: 300;
+    font-size: 14px;
+    text-align: left;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+}
+
+.invalidation-message i {
+    font-size: 20px;
+}
+
+.invalidation-message p {
+    margin-left: 10px;
+    margin-bottom: 0;
+}
+
+/* not-found page */
+.not-found {
+    padding: 60px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+.not-found h1 {
+    font-size: 8rem;
+    font-weight: 800;
+    color: #7d2856;
+    margin-bottom: 10px;
+}
+
+.not-found h2 {
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+/* buttons */
+.button {
+    background: #7d2856;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 5px;
+    border: none;
+}
+
+.button:hover {
+    color: #fff;
+    background: #a43670;
+}
+
+/* Footer */
+.footer {
+    padding: 10px 0;
+    font-size: 14px;
+    transition: all 0.3s;
+    text-align: center;
+    margin-top: 3rem;
+}

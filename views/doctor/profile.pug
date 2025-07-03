@@ -1,0 +1,54 @@
+extends doctor-layout.pug
+
+block scripts
+  script(src='/js/form-validations/edit-profile.js')
+
+block content
+  .pagetitle
+    div
+      h1 Profile
+      nav
+        ol.breadcrumb
+          li.breadcrumb-item
+            a(href='/dashboard') Dashboard
+          li.breadcrumb-item.active Profile
+  .card.profile-card
+    .row
+      .col-lg-3.col-md-4.profile-img
+        img(src=(loggedInUser.profileImage ? loggedInUser.profileImage : '/img/profile-img.png') alt="Profile Image")
+      .col-lg-9.col-md-8
+        .mt-2.mt-lg-0.profile-header
+          h3
+            strong= loggedInUser.userName
+          p= `(${loggedInUser.role}${loggedInUser.role === 'doctor' ? ` - ${loggedInUser.room}` : ''})`
+        .row.mb-1
+          .col-lg-3
+            span
+              strong Email:
+          .col-lg-9
+            span= loggedInUser.email
+        .row.mb-1
+          .col-lg-3
+            span
+              strong Phone:
+          .col-lg-9
+            span= loggedInUser.phoneNumber
+
+  .card.edit-profile
+    h3 
+      strong Edit Profile
+    form(action=`/profile?id=${loggedInUser._id}` enctype="multipart/form-data" method="POST")
+      .mb-2
+        label(for='userName') Full Name:
+        input#userName(name='userName' type='text' placeholder='Enter User Name' value=loggedInUser.userName)
+      .mb-2
+        label(for='phoneNumber') Phone Number:
+        input#phoneNumber(name='phoneNumber' type='text' placeholder='Phone Number' value=loggedInUser.phoneNumber)
+      .mb-2
+        label(for='profileImage') Profile Image:
+        .image-preview.profile-img.mt-2.d-flex.align-items-center
+            img#profileImagePreview(src=(loggedInUser.profileImage ? loggedInUser.profileImage : '/img/profile-img.png') alt='Profile Image' width='38px' height='38px')
+            input#profileImage.form-control.image-upload(type='file' name='profileImage' accept='image/*')
+      .submit-button
+        p.invalidation-message 
+        button.button(type='submit') Save Changes

@@ -1,0 +1,57 @@
+extends nurse-layout.pug
+
+block scripts
+  script(src='/js/form-validations/patient.js')
+  
+block content
+  .pagetitle
+    h1 Edit Patient Info
+    nav
+      ol.breadcrumb
+        li.breadcrumb-item
+          a(href='/dashboard') Dashboard
+        li.breadcrumb-item
+          a(href='/all-patients') Patients List
+        li.breadcrumb-item.active Edit Patient
+  .card
+    form(action=`/update-patient?id=${patient._id}` method="POST")
+      .row
+        .col-md-6
+          .mb-2
+            label(for='patientName') Full Name:
+            input#patientName(name='patientName' type='text' placeholder='Enter Patient Name' value=patient.patientName)
+          .mb-2
+            label(for='phoneNumber') Phone Number:
+            input#phoneNumber(name='phoneNumber' type='text' placeholder='Enter Phone Number' value=patient.phoneNumber)
+          .mb-2
+            label(for='dateOfBirth') Date Of Birth:
+            input#dateOfBirth(name='dateOfBirth' type='date' placeholder='Date Of Birth' value=patient.dateOfBirth)
+          .mb-2
+            label(for='gender') Gender:
+            select#gender(name='gender')
+              option(value="") Select Gender
+              option(value='male' selected=patient.gender === 'male') Male
+              option(value='female' selected=patient.gender === 'female') Female
+          .mb-2
+            label(for='address') Address:
+            input#address(name='address' type='text' placeholder='Enter Address' value=patient.address)
+        .col-md-6
+          .mb-2
+            //- label(for='updatedBy') Updated By:
+            input#updatedBy(name='updatedBy' type='text' value=loggedInUser._id hidden readonly)
+            input(name='updatedByDisplay' type='text' placeholder=loggedInUser.userName  value=loggedInUser.userName readonly hidden)
+          .mb-2
+            label(for='assignedTo') Assigned To:
+            select#assignedTo(name='assignedTo')
+              option(value="" selected=!(patient.assignedTo)) Assign patient to Doctor
+              option(value='room-1' selected=patient.assignedTo === 'room-1') Room-1
+              option(value='room-2' selected=patient.assignedTo === 'room-2') Room-2
+              option(value='room-3' selected=patient.assignedTo === 'room-3') Room-3
+              option(value='room-4' selected=patient.assignedTo === 'room-4') Room-4
+              option(value='room-5' selected=patient.assignedTo === 'room-5') Room-5
+          .mb-2
+            label(for='comments') Comments:
+            textarea#comments(name='comments' rows='6' placeholder='Add comments')= patient.comments
+          .submit-button
+            p.invalidation-message 
+            button.button(type='submit') Save Changes

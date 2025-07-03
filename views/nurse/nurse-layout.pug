@@ -1,0 +1,116 @@
+doctype html
+head
+  meta(charset='utf-8')
+  meta(content='width=device-width, initial-scale=1.0' name='viewport')
+  title Nurse - Kawempe National Referal Hospital
+  meta(content='' name='description')
+  meta(content='' name='keywords')
+
+  link(href='/img/favicon.png' rel='icon')
+  link(href='/img/apple-touch-icon.png' rel='apple-touch-icon')
+
+  link(href='https://fonts.gstatic.com' rel='preconnect')
+  link(href='https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i' rel='stylesheet')
+
+  link(href='/bootstrap/css/bootstrap.min.css' rel='stylesheet')
+  link(href='/bootstrap/bootstrap-icons/bootstrap-icons.css' rel='stylesheet')
+  link(href='/css/dashboard-layout.css' rel='stylesheet')
+
+header#header.header.fixed-top.d-flex.align-items-center
+  .logo.d-flex.align-items-center
+    a(href='dashboard.html')
+      img(src='/img/logo.png' alt='logo')
+
+  nav.header-nav.ms-auto
+    ul.d-flex.align-items-center
+      li.nav-item.dropdown.pe-3
+        a.nav-link.nav-profile.d-flex.align-items-center.pe-0(href='#' data-bs-toggle='dropdown')
+          img.rounded-circle(src=(loggedInUser.profileImage ? loggedInUser.profileImage : '/img/profile-img.png') alt="Profile Image")
+          span.d-none.d-md-block.dropdown-toggle.ps-2
+
+        ul.dropdown-menu.dropdown-menu-end.dropdown-menu-arrow.profile
+          li.dropdown-header
+            h6= loggedInUser.userName
+            span= `(${loggedInUser.role})`
+            br
+            p= loggedInUser.email
+          li
+            hr.dropdown-divider
+          li
+            a.dropdown-item.d-flex.align-items-center(href='/profile')
+              i.bi.bi-person
+              span My Profile
+          li
+            hr.dropdown-divider
+          li
+            a.dropdown-item.d-flex.align-items-center(href='/logout')
+              i.bi.bi-box-arrow-right
+              span Log Out
+
+      li
+        i.bi.bi-list.toggle-sidebar-btn
+
+aside#sidebar.sidebar
+  ul#sidebar-nav.sidebar-nav
+    li.nav-item(class=(activeSidebarLink === 'dashboard' ? 'active' : ''))
+      a.nav-link(href='/dashboard')
+        i.bi.bi-grid
+        span Dashboard
+    li.nav-heading Patients
+    li.nav-item(class=(activeSidebarLink === 'add-patient' ? 'active' : ''))
+      a.nav-link(href='/add-patient')
+        i.bi.bi-plus
+        span Add Patient
+    li.nav-item(class=(activeSidebarLink === 'patients' ? 'active' : ''))
+      a.nav-link(href='/all-patients')
+        i.bi.bi-heart-pulse
+        span All Patients
+    li.nav-heading Account
+    li.nav-item(class=(activeSidebarLink === 'profile' ? 'active' : ''))
+      a.nav-link(href='/profile')
+        i.bi.bi-person
+        span My Profile
+    li.nav-item
+      a.nav-link(href='/logout')
+        i.bi.bi-box-arrow-right
+        span Log Out
+
+main.page-content
+  // Notification section for called patients
+  div#call-notification.calling-card(style="display: none;")
+  block content
+
+div#notification-container
+
+footer.footer
+  | &copy; 2025 
+  strong
+    span Kawempe National Referal Hospital
+  | . All Rights Reserved
+
+a.back-to-top.d-flex.align-items-center.justify-content-center(href='#')
+  i.bi.bi-arrow-up-short
+
+script(src='/bootstrap/js/bootstrap.bundle.min.js')
+script(src='/js/main.js')
+script(src='/js/notifications.js')
+script(src="/socket.io/socket.io.js")
+
+script.
+  const socket = io();
+
+  // Listen for patient call notifications
+  socket.on('patientCalled', (data) => {
+    const notificationContainer = document.getElementById('call-notification');
+
+    notificationContainer.innerHTML =`
+      <p><i class="bi bi-exclamation-circle"></i> ${data.message}</p>`
+    notificationContainer.style.display = 'block';
+
+    // Auto-hide after 1 minute
+    setTimeout(() => {
+      notificationContainer.style.display = 'none';
+    }, 60000);
+  });
+
+block scripts

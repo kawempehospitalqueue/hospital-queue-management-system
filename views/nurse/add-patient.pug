@@ -1,0 +1,58 @@
+extends nurse-layout.pug
+  
+block scripts
+  script(src='/js/form-validations/patient.js')
+  
+block content
+  .pagetitle
+    h1 Add New Patient
+    nav
+      ol.breadcrumb
+        li.breadcrumb-item
+          a(href='/dashboard') Dashboard
+        li.breadcrumb-item
+          a(href='/all-patients') Patients List
+        li.breadcrumb-item.active New Patient
+  .card
+    form(action="/add-patient" method="POST")
+      .row
+        .col-md-6
+          .mb-2
+            label(for='patientName') Full Name:
+            input#patientName(name='patientName' type='text' placeholder='Enter Patient Name')
+          .mb-2
+            label(for='phoneNumber') Phone Number:
+            input#phoneNumber(name='phoneNumber' type='text' placeholder='Enter Phone Number')
+          .mb-2
+            label(for='dateOfBirth') Date Of Birth:
+            input#dateOfBirth(name='dateOfBirth' type='date' placeholder='Date Of Birth')
+          .mb-2
+            label(for='gender') Gender:
+            select#gender(name='gender')
+              option(selected value="") Select Gender
+              option(value='male') Male
+              option(value='female') Female
+          .mb-2
+            label(for='address') Address:
+            input#address(name='address' type='text' placeholder='Enter Address')
+        .col-md-6
+          .mb-2
+            //- label(for='recievedBy') Recieved By:
+            input#recievedBy(name='recievedBy' type='text' value=loggedInUser._id hidden readonly)
+            input(name='recievedByDisplay' type='text' placeholder=loggedInUser.userName  value=loggedInUser.userName readonly hidden)
+          .mb-2
+            label(for='assignedTo') Assign To:
+            select#assignedTo(name='assignedTo')
+              option(selected value="") Asign Patient to Room
+              option(value='emergency') Emergency
+              option(value='room-1') Room-1
+              option(value='room-2') Room-2
+              option(value='room-3') Room-3
+              option(value='room-4') Room-4
+              option(value='room-5') Room-5
+          .mb-2
+            label(for='comments') Comments:
+            textarea#comments(name='comments' type='text-area' rows='6' placeholder='Add comments')
+          .submit-button
+            p.invalidation-message 
+            button.button(type='submit') Add Patient

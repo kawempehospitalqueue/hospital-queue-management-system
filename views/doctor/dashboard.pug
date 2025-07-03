@@ -1,0 +1,31 @@
+extends doctor-layout.pug
+
+block content
+  .container-fluid
+    .pagetitle.mb-4
+      h1 Doctor Dashboard
+      nav
+        ol.breadcrumb
+          li.breadcrumb-item.active Dashboard
+
+    .row.g-4
+      .col-md-6
+        .card.shadow-sm
+          .card-body.text-center
+            h6 Total Patients
+            h3 #{totalPatients}
+      .col-md-6
+        .card.shadow-sm
+          .card-body.text-center
+            h6 Assigned Patients
+            h3 #{assignedPatients}
+      .col-md-6
+        .card.shadow-sm
+          .card-body.text-center
+            h6 Patients I Called
+            h3.text-success #{assignedCalled}
+      .col-md-6
+        .card.shadow-sm
+          .card-body.text-center
+            h6 Patients Waiting
+            h3.text-warning #{assignedNotCalled}
